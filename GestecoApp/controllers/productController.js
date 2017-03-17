@@ -1,23 +1,21 @@
 var Product = require('../models/Product');
 var fn = require('../UsefulFunctions/functions');
 
-//este es otro comentario para probar github
-
-
 
 module.exports = function (router) {
 
   router.get('/', function (req, res, next) {
-
-    var query = Product.find({});
-    query.exec(function (err, products) {
+    const productsCallback = (err, products) => {
       if (err) return next(err);
-
-      res.status(200).render('product',{ 'products': products });
-    });
+      res.status(200).json({ 'products': products });
+    };
+    const query = Product.find({});
+    query.exec()
+      .then(productsCallback)
+      .catch(next);
   });//fin de GET
 
-  router.post('/', function (req, res,next) {
+  router.post('/', function (req, res, next) {
     const _product = req.body;// {} if an error occurred
 
     var saveProductCallback = product => {
@@ -28,7 +26,7 @@ module.exports = function (router) {
     };
 
     var productCallback = (err, product) => {
-      if (err)return next(err);
+      if (err) return next(err);
       if (!product) {
         var newProduct = new Product();
         fn.checkProperties(newProduct, ['marca', 'modelo', 'serie', 'tension', 'proveedor'], _product);
@@ -56,7 +54,7 @@ module.exports = function (router) {
     query.exec(productCallback);
   });//fin de POST
 
-  router.put('/:id', function (req, res,next) {
+  router.put('/:id', function (req, res, next) {
     var query = Product.findById(req.params.id);
     query.exec(function (err, product) {
       if (err) return next(err);
@@ -81,7 +79,7 @@ module.exports = function (router) {
     });
   });//fin de PUT
 
-  router.delete('/:id', function (req, res,next) {
+  router.delete('/:id', function (req, res, next) {
     var query = Product.findById(req.params.id);
     query.exec(function (err, product) {
       if (err) return next(err);
