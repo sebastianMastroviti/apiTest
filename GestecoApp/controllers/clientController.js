@@ -1,6 +1,7 @@
 var Client = require('../models/Client');
 
 //comentario 
+//segundo comentario: se edita este archivo y el de productos
 
 module.exports = function (router) {
 
