@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="/assets/home.js"> </script>
+    <link href="/assets/css/home.css" rel="stylesheet" type="text/css" >
+  </head>
+  <body>
+
+    <% include ./partial/nav %>
+
+    
+      <form >
+        <label>Usuario</label>
+        <input type="text" placeholder="Usuario" /><br>
+        <label>Contraseña</label>
+        <input type="text" placeholder="Contraseña" /><br>
+
+        <button type="submit">Iniciar sesion</button>
+      </form>
+  </body>
+</html>

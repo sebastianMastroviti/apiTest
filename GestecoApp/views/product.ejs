@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Equipos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="/assets/product.js"></script>
+    <link href="/assets/css/form.css" rel="stylesheet" type="text/css" >
+    <link href="/assets/css/table.css" rel="stylesheet" type="text/css" >
+    <link href="/assets/css/alert.css" rel="stylesheet" type="text/css" >
+  </head>
+  <body>
+    <% include partial/nav.ejs %>
+    <div class="container main">
+      <% include partial/alert.ejs %>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="marca">Marca:</label>
+          <select class="form-control" id="marca" required>
+            <option value="Oki">Oki</option>
+            <option value="Lexmark">Lexmark</option>
+            <option value="Toshiba">Toshiba</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="modelo">Modelo:</label>
+          <input type="text" class="form-control" id="modelo" placeholder="Modelo" required />
+        </div>
+
+        <div class="form-group">
+          <label for="serie">Serie:</label>
+          <input type="text" class="form-control" id="serie" placeholder="Serie" required />
+        </div>
+
+        <div class="form-group">
+          <label for="tension">Tension:</label>
+          <input type="text" class="form-control" id="tension" placeholder="Tension" />
+        </div>
+
+        <div class="form-group">
+          <label for="proveedor">Proveedor:</label>
+          <input type="text" class="form-control" id="proveedor" placeholder="Proveedor" />
+        </div>
+
+        <input type="hidden" id="product-id" value="">
+        <div class="form-group">
+            <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
+            <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Enviar</button>
+        </div>
+      </form>
+
+
+    <div class="table-responsive" style="overflow-y: scroll; max-height: 500px;">
+      <table class="table table-condensed table-hover" id="products-table">
+        <thead>
+          <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Serie</th>
+            <th>Tension</th>
+            <th>Proveedor</th>
+            <th>ubicacion</th>
+            <th>En contrato</th>
+            <th>Seleccion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% products.forEach(function(product){ %>
+            <tr id="<%= product._id %>">
+              <td> <%= product.marca %> </td>
+              <td> <%= product.modelo %> </td>
+              <td> <%= product.serie %> </td>
+              <td> <%= product.tension %> </td>
+              <td> <%= product.proveedor %> </td>
+              <td> <%= product.ubicacion %> </td>
+              <td> <%= product.enContrato %> </td>
+              <td> <input type="radio" name="product-radio"> </td>
+            </tr>
+          <% }); %>
+        </tbody>
+      </table>
+    </div>
+    <div class="buttons-content">
+      <button type="button" class="btn btn-danger" id="delete-button"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+      <button type="button" class="btn btn-default" id="edit-button"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+    </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/assets/service.js"></script>
+    <link href="/assets/css/form.css" rel="stylesheet" type="text/css" >
+    <link href="/assets/css/table.css" rel="stylesheet" type="text/css" >
+  </head>
+  <body>
+    <% include partial/alert.ejs %>
+    <form class="form-horizontal" style="width: 100%;">
+      <div class="form-group">
+        <label for="cliente" class="col-sm-2 control-label">Cliente:</label>
+        <div class="col-sm-4">
+          <p class="form-control-static"><strong><%= client.nombre %></strong></p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="sector" class="col-sm-2 control-label">Sector:</label>
+        <div class="col-sm-4">
+          <select class="form-control" id="sector" required>
+            <% client.sectores.forEach(function(sector){ %>
+              <option value="<%= sector.nombre %>"><%= sector.nombre %></option>
+              <% }); %>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="direccion" class="col-sm-2 control-label">Direccion:</label>
+        <div class="col-sm-4">
+          <p class="form-control-static">poner en form sectores. idem telefono abajo</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="telefono" class="col-sm-2 control-label">Telefono:</label>
+        <div class="col-sm-4">
+          <p class="form-control-static">al elegir sector se actualiza</p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="fecha-emision" class="col-sm-2 control-label">Fecha de emision:</label>
+        <div class="col-sm-4">
+          <input type="date" class="form-control" id="fecha-emision" required />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="problema" class="col-sm-2 control-label">Problema:</label>
+        <div class="col-sm-4">
+          <textarea class="form-control" id="problema" rows="2"></textarea>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label for="tecnico" class="col-sm-2 control-label">Tecnico:</label>
+        <div class="col-sm-4">
+          <select class="form-control" id="tecnico" required>
+            <option value="Martin">Martin</option>
+            <option value="Luciano">Luciano</option>
+          </select>
+        </div>
+      </div>
+
+
+      <div class="table-responsive">
+        <table class="table table-condensed table-hover" id="">
+          <caption>Equipos en contrato</caption>
+          <thead>
+            <tr>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Serie</th>
+              <th>Ubicacion</th>
+              <th>seleccionar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% equipos.forEach(function(equipo){ %>
+              <tr name="">
+                <td> <%= equipo.marca %> </td>
+                <td> <%= equipo.modelo %> </td>
+                <td> <%= equipo.serie %> </td>
+                <td> <%= equipo.ubicacion %> </td>
+                <td> <input type="radio" name="product-radio" id=""> </td>
+              </tr>
+              <% }); %>
+          </tbody>
+        </table>
+      </div>
+      <div class="form-group">
+        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Enviar</button>
+      </div>
+    </form>
+  </body>
+</html>

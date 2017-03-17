@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Clientes</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script src="/assets/client.js"></script>
+    <link href="/assets/css/form.css" rel="stylesheet" type="text/css" >
+    <link href="/assets/css/table.css" rel="stylesheet" type="text/css" >
+    <link href="/assets/css/alert.css" rel="stylesheet" type="text/css" >
+  </head>
+  <body>
+    <div class="container main">
+    <% include partial/nav.ejs %>
+    <% include partial/alert.ejs %>
+    <form >
+      <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" placeholder="Nombre" required />
+      </div>
+
+      <div class="form-group">
+        <label for="cuit">Cuit o cuil:</label>
+        <input type="text" class="form-control" id="cuit" pattern="^[0-9]*$" placeholder="Cuit o cuil" required />
+      </div>
+
+      <div class="form-group">
+        <label for="telefono">Telefono:</label>
+        <input type="text" class="form-control" id="tel" pattern="^[0-9]*$" placeholder="Telefono" title="campo numerico" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Email" />
+      </div>
+
+      <input type="hidden" id="client-id" value="">
+      <div class="form-group">
+          <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
+          <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Enviar</button>
+      </div>
+    </form>
+
+    <div class="table-responsive">
+    <table class="table table-condensed table-hover" id="clients-table">
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Empresa</th>
+          <th>Cuit</th>
+          <th>Telefono</th>
+          <th>Email</th>
+          <th>Perfil</th>
+          <th>Seleccion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% clients.forEach(function(client){ %>
+          <tr id="<%= client._id %>">
+            <td><div id="logo"></div></td>
+            <td><strong> <%= client.nombre %> </strong></td>
+            <td> <%= client.cuit %> </td>
+            <td> <%= client.tel %> </td>
+            <td> <%= client.email %> </td>
+            <td> <a href="/client/<%= client._id %>">Ver perfil</a> </td>
+            <td> <input type="radio" name="client-radio"> </td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+  <div class="buttons-content">
+    <button type="button" class="btn btn-danger" id="delete-button"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+    <button type="button" class="btn btn-default" id="edit-button"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+  </div>
+  </div>
+  </body>
+</html>

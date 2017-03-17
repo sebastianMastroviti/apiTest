@@ -1,0 +1,34 @@
+/*.table-wrapper{
+  float: left;
+  width: 70%;
+  height: 200px;
+  margin: 0 auto;
+  display: block;
+}
+*/ /*por el momento parece no util*/
+
+.buttons-content{
+  float: right;
+}
+
+
+table thead{
+  background-color: #2938bc;
+  color: white;
+  padding: 8px;
+}
+
+table tbody tr:nth-child(odd){
+  background-color: #f1fff2;
+}
+
+table #logo{
+  background-image: url("/assets/images/small_user_avatar.png");
+  background-position: center;
+  background-size: 100% 100%;
+  background-color: white;
+  height: 50px;
+  width: 50px;
+  margin: 0 auto;
+  border-radius: 50%;
+}

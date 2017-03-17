@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="/assets/contract.js"></script>
+    <link href="/assets/css/form.css" rel="stylesheet" type="text/css" >
+    <link href="/assets/css/table.css" rel="stylesheet" type="text/css" >
+    <link href="/assets/css/tabs.css" rel="stylesheet" type="text/css" >
+    </head>
+  <body>
+    <% include partial/tabs.ejs %>
+
+    <div id="formulario" class="tabcontent">
+      <form class="form-horizontal" style="width: 100%;">
+        <div class="form-group">
+          <label for="tipo-contrato" class="col-sm-2 control-label">Tipo de contrato:</label>
+          <div class="col-sm-4">
+            <select class="form-control" id="tipo-contrato" required>
+              <option value="renta">renta</option>
+              <option value="poliza">poliza</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fecha-inicio" class="col-sm-2 control-label">Fecha inicio:</label>
+          <div class="col-sm-4">
+            <input type="date" class="form-control" id="fecha-inicio" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fecha-fin" class="col-sm-2 control-label">Fecha fin:</label>
+          <div class="col-sm-4">
+            <input type="date" class="form-control" id="fecha-fin" required />
+          </div>
+        </div>
+
+      <div class="table-responsive">
+        <table class="table table-condensed table-hover" id="product-table">
+          <caption>Equipos disponibles</caption>
+          <thead>
+            <tr>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Serie</th>
+              <th>Proveedor</th>
+              <th>Tension</th>
+              <th>Volumen fijo</th>
+              <th>Cargo fijo</th>
+              <th>Costo excedente</th>
+              <th>Sector</th>
+              <th>seleccionar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% products.forEach(function(product){ %>
+              <tr name="<%= product._id %>">
+                <td> <%= product.marca %> </td>
+                <td> <%= product.modelo %> </td>
+                <td> <%= product.serie %> </td>
+                <td> <%= product.proveedor %> </td>
+                <td> <%= product.tension %> </td>
+                <td> <input type="text" name="volumen-fijo" /> </td>
+                <td> <input type="text" name="cargo-fijo" /> </td>
+                <td> <input type="text" name="costo-excedente" /> </td>
+                <td>
+                  <select id="sector" required>
+                    <% sectors.forEach(function(sector){ %>
+                      <option value="<%= sector._id %>"><%= sector.nombre %></option>
+                    <% }); %>
+                  </select>
+                </td>
+                <td> <input type="checkbox" id="<%= product._id %>"> </td>
+              </tr>
+              <% }); %>
+            </tbody>
+          </table>
+      </div>
+      <div class="form-group">
+        <button type="reset" class="btn btn-default"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
+        <button type="submit" class="btn btn-success"><span class="glyphicon glyphicon-send"></span> Enviar</button>
+      </div>
+    </form>
+    </div>
+
+
+    <div id="contratos" class="tabcontent">
+      <div class="table-responsive" style="overflow-y: scroll; max-height: 500px;">
+      <table class="table table-condensed table-hover" id="contracts-table" >
+        <caption>Contratos</caption>
+        <thead>
+          <tr>
+            <th>Tipo de contrato</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>detalle</th>
+            <th>seleccione</th>
+          </tr>
+        </thead>
+        <tbody >
+          <% contracts.forEach(function(contract){ %>
+            <% if(contract){ %>
+              <tr  id="<%= contract._id %>">
+                <td> <%= contract.tipoContrato %> </td>
+                <td> <%= ("0" + contract.inicio.getUTCDate()).slice(-2) %> - <%= ("0"+(contract.inicio.getUTCMonth() + 1)).slice(-2) %> - <%= contract.inicio.getUTCFullYear() %> </td>
+                <td> <%= ("0" + contract.fin.getUTCDate()).slice(-2) %> - <%= ("0"+(contract.fin.getUTCMonth() + 1)).slice(-2) %> - <%= contract.fin.getUTCFullYear() %> </td>
+                <td> <button type="button">Detalles</button> </td>
+                <td> <input type="radio" name="contract-radio"> </td>
+              </tr>
+            <% } %>
+          <% }); %>
+        </tbody>
+      </table>
+      </div>
+      <div class="buttons-content">
+        <button type="button" class="btn btn-danger" id="delete-contract"><span class="glyphicon glyphicon-remove"></span> Eliminar</button>
+        <button type="button" class="btn btn-default" id="edit-contract"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+      </div>
+    </div>
+
+    <div id="detalles" class="tabcontent table-responsive" style="margin-top: 6%;">
+    <table class="table table-condensed table-hover" id="details-table">
+      <caption>Detalles de contrato</caption>
+      <thead>
+        <tr>
+          <th>Marca</th>
+          <th>Modelo</th>
+          <th>Serie</th>
+          <th>Proveedor</th>
+          <th>Tension</th>
+          <th>Volumen fijo</th>
+          <th>Cargo fijo</th>
+          <th>Costo excedente</th>
+          <th>Seleccione</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <button type="button" id="pre-delete">Eliminar detalle</button>
+    <button type="button" id="delete">Eliminar</button>
+    <button type="button" id="cancel">Cancelar</button>
+    </div>
+  </body>
+</html>
